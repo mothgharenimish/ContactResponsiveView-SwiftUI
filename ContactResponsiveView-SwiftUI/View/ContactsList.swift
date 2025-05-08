@@ -8,16 +8,18 @@
 import SwiftUI
 
 struct ContactsList: View {
+    
+    let contacts : ContactModel
     var body: some View {
         
         HStack {
             
-            Image("icons8-a-50")
+            Image(contacts.contactimage!)
                 .resizable()
                 .scaledToFit()
-                .frame(width: 45, height: 45)
-                .padding(10)
-                .background(Color.pink)
+                .frame(width: 35, height: 35)
+                .padding(14)
+                .background(contacts.color!)
                 .clipShape(Circle())
                 .padding(.top,-30)
             
@@ -26,18 +28,18 @@ struct ContactsList: View {
                 
                 HStack {
                     
-                    Text("Avinash Sharma")
+                    Text(contacts.contactname!)
                         .font(.custom("Rockwell", size: 18))
                     Image(systemName: "wifi")
                 }
                 
                 HStack {
                     Image(systemName: "line.diagonal.arrow")
-                    Text("Mobile 2.36 PM")
+                    Text(contacts.contacttime!)
                         .font(.custom("Rockwell", size: 18))
                 }
                 
-                Text("SIM2")
+                Text(contacts.contactsim!)
                     .font(.custom("Rockwell", size: 18))
                 
             }
@@ -56,5 +58,5 @@ struct ContactsList: View {
 }
 
 #Preview {
-    ContactsList()
+    ContactsList(contacts: ContactModel(contactimage: "icons8-p-50", contactname: "Poonam Dhillon", contacttime: "Mobile 2.55 PM", contactsim: "SIM2", color: .green))
 }

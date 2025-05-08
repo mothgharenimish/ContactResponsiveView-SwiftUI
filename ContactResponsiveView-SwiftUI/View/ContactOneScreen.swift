@@ -43,17 +43,15 @@ struct ContactOneScreen: View {
                                     }
                                     .padding(.top, 20)
                                     
-                                    // "Today" Label
                                     Text("Today")
                                         .font(.custom("Rockwell", size: 17))
                                         .padding(.horizontal, 20)
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .padding(.top, 35)
                                     
-                                    // Contacts List
                                     LazyVStack(spacing: 20) {
-                                        ForEach(0..<20, id: \.self) { _ in
-                                            ContactsList()
+                                        ForEach(0..<contacts.count, id: \.self) { index in
+                                            ContactsList(contacts: contacts[index])
                                         }
                                     }
                                     .padding(.vertical, 40)

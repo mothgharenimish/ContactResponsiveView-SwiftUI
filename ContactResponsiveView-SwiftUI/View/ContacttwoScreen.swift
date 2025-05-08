@@ -8,9 +8,35 @@
 import SwiftUI
 
 struct ContacttwoScreen: View {
+    @State private var search: String = ""
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        VStack {
+            
+            SearchBars(search: $search)
+            
+            ScrollView(.vertical,showsIndicators: false) {
+                
+                Text("Suggested")
+                    .font(.custom("Rockwell", size: 17))
+                    .padding(.horizontal, 20)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.top, 35)
+                
+                LazyVStack(spacing: 20) {
+                    ForEach(0..<contacts.count, id: \.self) { index in
+                        ContactsList(contacts: contacts[index])
+                    }
+                }
+                .padding(.vertical, 40)
+            }
+        }
+        .ignoresSafeArea(.all)
+        
     }
+    
+    
 }
 
 #Preview {
