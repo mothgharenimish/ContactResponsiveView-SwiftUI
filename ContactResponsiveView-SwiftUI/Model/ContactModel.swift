@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+struct ContactModel {
+    
+    let contactimage : String?
+    let contactname : String?
+    let contacttime : String?
+    let contactsim : String?
+}
+

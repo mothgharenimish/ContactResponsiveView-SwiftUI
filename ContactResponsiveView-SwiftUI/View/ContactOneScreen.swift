@@ -8,9 +8,65 @@
 import SwiftUI
 
 struct ContactOneScreen: View {
+    
+    @State var isExpanded: Bool = true
+    private var rectangleId = "Rectangle"
+    @Namespace var expansionAnimation
+    @State private var search: String = ""
+    @State private var selectedIndex: Int = 0
+    
+    let contactCategory = ["All","Missed","Contacts","Non-Spam","Spam"]
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        ResponsiveView { prop in
+            GeometryReader { geo in
+                if !prop.isLandscape && !prop.isiPadPortrait {
+                    VStack(alignment: .leading, spacing: 0) {
+                        if isExpanded {
+                            SearchBar(search: $search, namespace: expansionAnimation, rectangleId: rectangleId)
+                            
+                            ScrollView(.vertical, showsIndicators: false) {
+                                VStack(alignment: .leading, spacing: 0) {
+                                    
+                                    // Horizontal Category List
+                                    ScrollView(.horizontal, showsIndicators: false) {
+                                        HStack(spacing: 10) {
+                                            ForEach(0..<contactCategory.count) { i in
+                                                ContactCategory(isActive: selectedIndex == i, text: contactCategory[i])
+                                                    .onTapGesture {
+                                                        selectedIndex = i
+                                                    }
+                                            }
+                                        }
+                                        .padding(.horizontal, 20)
+                                    }
+                                    .padding(.top, 20)
+                                    
+                                    // "Today" Label
+                                    Text("Today")
+                                        .font(.custom("Rockwell", size: 17))
+                                        .padding(.horizontal, 20)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .padding(.top, 35)
+                                    
+                                    // Contacts List
+                                    LazyVStack(spacing: 20) {
+                                        ForEach(0..<20, id: \.self) { _ in
+                                            ContactsList()
+                                        }
+                                    }
+                                    .padding(.vertical, 40)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
+    
+    
 }
 
 #Preview {
