@@ -11,8 +11,8 @@ struct SearchBar: View {
     
     @Binding var search: String
     var namespace: Namespace.ID
-    var rectangleId: String
-
+    var searchbarId: String
+    
     var body: some View {
         
         HStack {
@@ -23,6 +23,11 @@ struct SearchBar: View {
                 .frame(width: 20,height: 20)
             
             TextField("Search Contacts", text: $search)
+                .background(Color.clear)
+                .onTapGesture {
+                    // This will be handled by the parent view
+                }
+                .matchedGeometryEffect(id: "\(searchbarId)_textfield", in: namespace)
             
             Image(systemName: "microphone")
                 .resizable()
@@ -34,21 +39,21 @@ struct SearchBar: View {
                 .foregroundStyle(.gray)
                 .frame(width: 20,height: 20)
         }
-        
+        .matchedGeometryEffect(id: searchbarId, in: namespace)
         .padding(.horizontal,20)
         .frame(height: 50)
         .background(
-                  RoundedRectangle(cornerRadius: 25.0)
-                      .fill(Color.gray.opacity(0.2))
-              )
-              .clipShape(RoundedRectangle(cornerRadius: 25.0))
-              .padding(.horizontal, 20)
-
-
+            RoundedRectangle(cornerRadius: 25.0)
+                .fill(Color.gray.opacity(0.2))
+        )
+        .clipShape(RoundedRectangle(cornerRadius: 25.0))
+        .padding(.horizontal, 20)
+        
+        
     }
 }
 
 #Preview {
     @Namespace var namespace
-    return SearchBar(search: .constant(""), namespace: namespace, rectangleId: "searchBar")
+    SearchBar(search: .constant(""), namespace: namespace, searchbarId: "searchBar")
 }
