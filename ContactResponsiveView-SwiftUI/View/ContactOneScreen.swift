@@ -29,7 +29,7 @@ struct ContactOneScreen: View {
                                           isExpanded.toggle()
                                       }
                                   }
-                                  .transition(.move(edge: .top))
+                                  .transition(.identity)
                               
                               ScrollView(.vertical, showsIndicators: false) {
                                   VStack(alignment: .leading, spacing: 0) {
