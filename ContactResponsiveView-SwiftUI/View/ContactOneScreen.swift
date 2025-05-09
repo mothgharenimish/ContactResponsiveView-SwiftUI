@@ -13,9 +13,12 @@ struct ContactOneScreen: View {
     private var rectangleId = "Rectangle"
     @Namespace var expansionAnimation
     @State private var search: String = ""
+    @State private var contacttwosearch : String = ""
     @State private var selectedIndex: Int = 0
     
     let contactCategory = ["All","Missed","Contacts","Non-Spam","Spam"]
+    
+  
     
     var body: some View {
         
@@ -62,7 +65,7 @@ struct ContactOneScreen: View {
                               }
                           } else {
                               ContacttwoScreen(
-                                  search: $search,
+                                  search: $contacttwosearch,
                                   namespace: expansionAnimation,
                                   searchbarId: rectangleId,
                                   onBackTap: {

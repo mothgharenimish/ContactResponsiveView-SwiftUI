@@ -12,6 +12,18 @@ struct ContacttwoScreen: View {
        var namespace: Namespace.ID
        var searchbarId: String
        var onBackTap: () -> Void
+    
+    
+    var filtercontacts : [ContactModel] {
+        
+        if search.isEmpty {
+            return contacts
+        } else {
+            return contacts.filter {
+                $0.contactname!.lowercased().contains(search.lowercased())
+            }
+        }
+    }
 
     var body: some View {
         
@@ -29,8 +41,8 @@ struct ContacttwoScreen: View {
                           .padding(.top, 35)
                       
                       LazyVStack(spacing: 20) {
-                          ForEach(0..<contacts.count, id: \.self) { index in
-                              ContactsList(contacts: contacts[index])
+                          ForEach(0..<filtercontacts.count, id: \.self) { index in
+                              ContactsList(contacts: filtercontacts[index])
                           }
                       }
                       .padding(.vertical, 40)
